@@ -61,6 +61,7 @@
       <button id="btnTranslit">Translit</button>
       <button id="btnCopy">Copy</button>
       <button id="btnGoogle">Google</button>
+      <button id="btnClear">Clear</button>
     </div>
 
     <!-- <script>
@@ -216,8 +217,6 @@
         text.value = currText;
       }
 
-
-
       const copyToClipboard = (str) => {
         const el = document.createElement("textarea");
         el.value = str;
@@ -239,11 +238,14 @@
       });
 
       btnGoogle.addEventListener("click", (e) => {
-        window.open("https://www.google.com/search?q=" + text.value, '_blank').focus();
+        window
+          .open("https://www.google.com/search?q=" + text.value, "_blank")
+          .focus();
       });
 
-
-
+      btnClear.addEventListener("click", (e) => {
+        text.value = "";
+      });
     </script>
   </body>
 </html>
