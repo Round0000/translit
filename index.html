@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #text {
+      display: block;
+      font-family: inherit;
+      padding: 0.5em;
+      margin: 2em auto;
+      height: 50vh;
+      width: 98%;
+      max-width: 60ch;
+      font-size: 1rem;
+    }
+  </style>
+  <body>
+    <textarea id="text"></textarea>
+
+    <!-- <script>
+      const scheme = {
+        a: "а",
+        b: "б",
+        v: "в",
+        g: "г",
+        d: "д",
+        e: "е",
+        z: "з",
+        i: "и",
+        j: "й",
+        k: "к",
+        l: "л",
+        m: "м",
+        n: "н",
+        o: "о",
+        p: "п",
+        r: "р",
+        s: "с",
+        t: "т",
+        u: "у",
+        f: "ф",
+        h: "х",
+        c: "ц",
+        y: "ы",
+        ö: "ё",
+        "#": "ъ",
+        "'": "ь",
+        ü: "ю",
+        q: "я",
+      };
+
+      const combos = {
+        jo: "ё",
+        yo: "ё",
+        zh: "ж",
+        ch: "ч",
+        sh: "ш",
+        shh: "щ",
+        tvz: "ъ",
+        mjz: "ь",
+        je: "э",
+        ju: "ю",
+        yu: "ю",
+        ja: "я",
+        ya: "я",
+      };
+
+      function replaceChar(e) {
+        if (scheme[e.key]) {
+          text.value += scheme[e.key];
+        } else if (scheme[e.key.toLowerCase()]) {
+          text.value += scheme[e.key.toLowerCase()].toUpperCase();
+        }
+      }
+
+      let currentCombo = "";
+
+      text.addEventListener("keydown", (e) => {
+        // console.log(e);
+
+        checkIfCombo(e.key);
+
+        if (window.getSelection().toString().length > 0 && e.key.length === 1) {
+          const selStart = text.selectionStart;
+          const selEnd = text.selectionEnd;
+          text.value = text.value.slice(0, selStart) + text.value.slice(selEnd);
+        }
+
+        if ((scheme[e.key] || scheme[e.key.toLowerCase()]) && !e.ctrlKey) {
+          e.preventDefault();
+          replaceChar(e);
+        }
+      });
+
+      function checkIfCombo(key) {
+        if (key.length === 1) {
+          currentCombo += key;
+          // console.log(currentCombo);
+        }
+
+        if (combos[currentCombo]) {
+          console.log(currentCombo + " = " + combos[currentCombo]);
+          currentCombo = "";
+        }
+      }
+    </script> -->
+
+    <script>
+      let scheme = [
+        ["shh", "щ"],
+        ["tvz", "ъ"],
+        ["mjz", "ь"],
+        ["sh", "ш"],
+        ["jo", "ё"],
+        ["yo", "ё"],
+        ["zh", "ж"],
+        ["ch", "ч"],
+        ["je", "э"],
+        ["ju", "ю"],
+        ["yu", "ю"],
+        ["ja", "я"],
+        ["ya", "я"],
+        ["a", "а"],
+        ["b", "б"],
+        ["v", "в"],
+        ["g", "г"],
+        ["d", "д"],
+        ["e", "е"],
+        ["z", "з"],
+        ["i", "и"],
+        ["j", "й"],
+        ["k", "к"],
+        ["l", "л"],
+        ["m", "м"],
+        ["n", "н"],
+        ["o", "о"],
+        ["p", "п"],
+        ["r", "р"],
+        ["s", "с"],
+        ["t", "т"],
+        ["u", "у"],
+        ["f", "ф"],
+        ["h", "х"],
+        ["c", "ц"],
+        ["y", "ы"],
+        ["ö", "ё"],
+        ["ü", "ю"],
+        ["q", "я"],
+        ["#", "ъ"],
+        ["'", "ь"],
+      ];
+
+      let schemeUpper = scheme.map((item) => [
+        item[0].toUpperCase(),
+        item[1].toUpperCase(),
+      ]);
+
+      scheme = [...scheme, ...schemeUpper]
+
+      console.log(scheme);
+
+      function replaceByScheme() {
+        let currText = text.value;
+
+        scheme.forEach((item) => {
+          currText = currText.replaceAll(item[0], item[1]);
+        });
+
+        text.value = currText;
+      }
+    </script>
+  </body>
+</html>
