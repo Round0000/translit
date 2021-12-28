@@ -61,6 +61,7 @@
       <button id="btnTranslit">Translit</button>
       <button id="btnCopy">Copy</button>
       <button id="btnGoogle">Google</button>
+      <button id="btnTranslate">Translate</button>
       <button id="btnClear">Clear</button>
     </div>
 
@@ -242,6 +243,13 @@
           .open("https://www.google.com/search?q=" + text.value, "_blank")
           .focus();
       });
+
+      btnTranslate.addEventListener("click", (e) => {
+        window
+          .open("https://translate.google.com/?sl=ru&tl=fr&text=" + text.value + "&op=translate&hl=fr", "_blank")
+          .focus();
+      });
+
 
       btnClear.addEventListener("click", (e) => {
         text.value = "";
