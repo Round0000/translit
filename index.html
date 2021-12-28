@@ -15,6 +15,7 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
+      background-color: #000;
     }
 
     #text {
@@ -23,13 +24,44 @@
       padding: 0.5em;
       margin: 2em auto;
       height: 50vh;
-      width: 98%;
+      width: 90%;
       max-width: 60ch;
       font-size: 1rem;
+    }
+
+    #actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      all: unset;
+      cursor: pointer;
+      display: block;
+      margin: 0.5em;
+      padding: 0.5em 1.25em;
+      color: #222;
+      border: 3px solid burlywood;
+      background-color: #fff;
+      border-radius: 6px;
+      width: 5em;
+      text-align: center;
+    }
+
+    button:focus {
+      outline: 2px solid orange;
+      outline-offset: 1px;
     }
   </style>
   <body>
     <textarea id="text"></textarea>
+
+    <div id="actions">
+      <button id="btnTranslit">Translit</button>
+      <button id="btnCopy">Copy</button>
+      <button id="btnGoogle">Google</button>
+    </div>
 
     <!-- <script>
       const scheme = {
@@ -160,6 +192,7 @@
         ["ö", "ё"],
         ["ü", "ю"],
         ["q", "я"],
+        ["w", "щ"],
         ["#", "ъ"],
         ["'", "ь"],
       ];
@@ -169,7 +202,7 @@
         item[1].toUpperCase(),
       ]);
 
-      scheme = [...scheme, ...schemeUpper]
+      scheme = [...scheme, ...schemeUpper];
 
       console.log(scheme);
 
@@ -182,6 +215,35 @@
 
         text.value = currText;
       }
+
+
+
+      const copyToClipboard = (str) => {
+        const el = document.createElement("textarea");
+        el.value = str;
+        el.setAttribute("readonly", "");
+        el.style.position = "absolute";
+        el.style.left = "-9999px";
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+      };
+
+      btnTranslit.addEventListener("click", (e) => {
+        replaceByScheme();
+      });
+
+      btnCopy.addEventListener("click", (e) => {
+        copyToClipboard(text.value);
+      });
+
+      btnGoogle.addEventListener("click", (e) => {
+        window.open("https://www.google.com/search?q=" + text.value, '_blank').focus();
+      });
+
+
+
     </script>
   </body>
 </html>
