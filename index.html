@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Translit</title>
   </head>
   <style>
     * {
@@ -15,7 +15,7 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background-color: #000;
+      background-color: #111;
     }
 
     #text {
@@ -25,8 +25,15 @@
       margin: 2em auto;
       height: 30vh;
       width: 90%;
-      max-width: 60ch;
+      max-width: 80ch;
       font-size: 1rem;
+      min-width: 300px;
+      min-height: 6em;
+    }
+
+    #text:focus-visible {
+      outline: 2px solid orange;
+      outline-offset: 1px;
     }
 
     #actions {
@@ -47,15 +54,30 @@
       border-radius: 6px;
       width: 5em;
       text-align: center;
+      transition: transform .2s, border-color .2s;
     }
 
-    button:focus {
-      outline: 2px solid orange;
-      outline-offset: 1px;
+    button:hover,
+    button:focus-visible {
+      transform: translateY(-4px);
+      border-color: orange;
+    }
+
+    h1 {
+      color: orange;
+      font-weight: normal;
+      text-align: center;
+      margin-top: 1em;
+      font-size: 1.5rem;
     }
   </style>
   <body>
-    <textarea id="text"></textarea>
+    <h1>Dobryj den' ➡ Добрый день</h1>
+
+    <textarea
+      id="text"
+      placeholder="Inscrivez le texte en caractères latins ici, le bouton [Translit] le transposera en cyrillique !"
+    ></textarea>
 
     <div id="actions">
       <button id="btnTranslit">Translit</button>
@@ -64,94 +86,6 @@
       <button id="btnTranslate">Translate</button>
       <button id="btnClear">Clear</button>
     </div>
-
-    <!-- <script>
-      const scheme = {
-        a: "а",
-        b: "б",
-        v: "в",
-        g: "г",
-        d: "д",
-        e: "е",
-        z: "з",
-        i: "и",
-        j: "й",
-        k: "к",
-        l: "л",
-        m: "м",
-        n: "н",
-        o: "о",
-        p: "п",
-        r: "р",
-        s: "с",
-        t: "т",
-        u: "у",
-        f: "ф",
-        h: "х",
-        c: "ц",
-        y: "ы",
-        ö: "ё",
-        "#": "ъ",
-        "'": "ь",
-        ü: "ю",
-        q: "я",
-      };
-
-      const combos = {
-        jo: "ё",
-        yo: "ё",
-        zh: "ж",
-        ch: "ч",
-        sh: "ш",
-        shh: "щ",
-        tvz: "ъ",
-        mjz: "ь",
-        je: "э",
-        ju: "ю",
-        yu: "ю",
-        ja: "я",
-        ya: "я",
-      };
-
-      function replaceChar(e) {
-        if (scheme[e.key]) {
-          text.value += scheme[e.key];
-        } else if (scheme[e.key.toLowerCase()]) {
-          text.value += scheme[e.key.toLowerCase()].toUpperCase();
-        }
-      }
-
-      let currentCombo = "";
-
-      text.addEventListener("keydown", (e) => {
-        // console.log(e);
-
-        checkIfCombo(e.key);
-
-        if (window.getSelection().toString().length > 0 && e.key.length === 1) {
-          const selStart = text.selectionStart;
-          const selEnd = text.selectionEnd;
-          text.value = text.value.slice(0, selStart) + text.value.slice(selEnd);
-        }
-
-        if ((scheme[e.key] || scheme[e.key.toLowerCase()]) && !e.ctrlKey) {
-          e.preventDefault();
-          replaceChar(e);
-        }
-      });
-
-      function checkIfCombo(key) {
-        if (key.length === 1) {
-          currentCombo += key;
-          // console.log(currentCombo);
-        }
-
-        if (combos[currentCombo]) {
-          console.log(currentCombo + " = " + combos[currentCombo]);
-          currentCombo = "";
-        }
-      }
-    </script> -->
 
     <script>
       let scheme = [
@@ -246,10 +180,14 @@
 
       btnTranslate.addEventListener("click", (e) => {
         window
-          .open("https://translate.google.com/?sl=ru&tl=fr&text=" + text.value + "&op=translate&hl=fr", "_blank")
+          .open(
+            "https://translate.google.com/?sl=ru&tl=fr&text=" +
+              text.value +
+              "&op=translate&hl=fr",
+            "_blank"
+          )
           .focus();
       });
-
 
       btnClear.addEventListener("click", (e) => {
         text.value = "";
